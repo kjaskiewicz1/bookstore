@@ -11,7 +11,15 @@ public interface BookstoreService {
     public String updateBookDetails(Bookstore book);
     public String deleteBookDetails(long ISBN);
 
-   public List<Bookstore> getGenre(String genre);
+   public List<Bookstore> getGenreDetails(String genre);
+
+    public List<Bookstore> getPublisherDetails(String publisher);
     public List<Bookstore> getAllBooks();
+
+    public List<Bookstore> topSellers(List<Bookstore> books);
+
+    public List<Bookstore> getBooksByRatings(List<Bookstore> books, double minRating);
+
+    public void discountBooksByPublisher(List<Bookstore> books, String publisher, double discountPercentage);
 
 }

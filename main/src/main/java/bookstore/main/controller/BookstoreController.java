@@ -18,24 +18,49 @@ public class BookstoreController {
 
     BookstoreService booksService;
 
-
+    private List<Bookstore> books = new ArrayList<>();
 
     public BookstoreController(BookstoreService booksService) {
         this.booksService = booksService;
     }
 
 
-  /*@GetMapping("/genre/{genre}")
-    public ResponseEntity<Bookstore> getGenreBooks(@PathVariable(name = "genre") String genre)
+  @GetMapping("/genre/{Genre}")
+    public List<Bookstore> getGenreBooks(@PathVariable("Genre") String genre)
     {
-        List<Bookstore> book = booksService.getAllBooks();
-        if (book.isPresent()){
-            return ResponseEntity.ok(book.get());
-        }
-        book.getGenre();
-      return ResponseEntity.ok(book);
+        //booksService.getAllBooks();
+       return booksService.getGenreDetails(genre);
     }
-*/
+
+    @GetMapping("/publisher/{Publisher}")
+    public List<Bookstore> getPublisherBooks(@PathVariable("Publisher") String publisher)
+    {
+        //booksService.getAllBooks();
+        return booksService.getPublisherDetails(publisher);
+    }
+
+    @GetMapping("/topsellers")
+    public List<Bookstore> getTopSellers()
+    {
+        List<Bookstore> allBooks = booksService.getAllBooks();
+        return booksService.topSellers(allBooks);
+    }
+
+    @GetMapping("/rating")
+    public List<Bookstore> getBooksbyRatings(@RequestParam("Rating") double minRating)
+    {
+        List<Bookstore> allBooks = booksService.getAllBooks();
+        return booksService.getBooksByRatings(allBooks,minRating);
+    }
+
+    @PutMapping("/Discount")
+    public void discountBooksByPublisher(@RequestParam("Publisher") String publisher, @RequestParam("Discount") double discountPercentage)
+    {
+        List<Bookstore> allBooks = booksService.getAllBooks();
+        booksService.discountBooksByPublisher(allBooks,publisher,discountPercentage);
+    }
+
+
     @GetMapping
     public List<Bookstore> getAllBookDetails()
     {

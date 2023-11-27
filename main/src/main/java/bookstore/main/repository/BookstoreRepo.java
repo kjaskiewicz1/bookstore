@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface BookstoreRepo extends JpaRepository<Bookstore,String> {
 
-    //List<Bookstore> getGenre(Bookstore book);
+    List<Bookstore> findByGenre(String genre);
+
+    List<Bookstore> findByPublisher(String publisher);
 }
